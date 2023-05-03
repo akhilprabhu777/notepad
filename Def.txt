@@ -1,0 +1,5 @@
+WinSCP -- WinSCP is a popular SFTP client and FTP client for Microsoft Windows! Use WinSCP to copy files between your computer and 
+          remote servers using FTP, FTPS, SCP, SFTP, WebDAV or S3 file transfer protocols. Used for only Windows.
+		  
+Filezilla -- same as winscp, but it is used for any os. Ex- Windows, Linxux, Mac		  
+

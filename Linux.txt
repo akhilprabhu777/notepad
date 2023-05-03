@@ -1,0 +1,17 @@
+awk -F(field seperater) '-' '{print $NF}' --> NF for last field
+awk -F(field seperater) '-' '{print $NF}' <<< $(hostname) --> redirecting command o/p to hostname
+
+echo ${hostName[-1]} -- for last value in row
+IFS(internal field seperater) --> IFS='-' read -a hostName <<< $(hostanme)
+
+sed –n '10,$p' file1|sed '/MNO/s/ABC/DEF/' --> $p end of file from line 10 and which line has MNO replace ABC with DEF
+
+Absolute path = /home/ubuntu/filename
+Relative path = ./filename
+
+Both curl(protocols -- HTTP, HTTPS, FTP, FTPS, SCP, SFTP) and wget(HTTP and FTP) commands are used to download files from internet, and while they have some similarities
+wget/curl [options] URL
+curl -K urls.txt -- you can use a list of URLs in a text file and then pass that file to curl using -K option
+wget -r https://example.com/ -- To download all linked files on a website with wget, you can use -r option. For example −
+
+

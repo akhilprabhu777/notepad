@@ -1,0 +1,17 @@
+git branch -d example --> to delete a branch locally
+git push origin --delete listbranch-1 --> to delete a branch in github
+git checkout filename --> to undo modified file
+git revert commit-id --> to undo commited code
+git restore --staged filename --> to unstage a file
+git cherry-pick commid-id --> pick all the changes of particular commit and add to desired branch
+git reset HEAD~1 --hard --> deletes latest commit
+git reflog --> By default, git reflog will output the reflog of the HEAD ref. 
+git commit --allow-empty -m "dummy commit to trigger build"
+git-bisect - Use binary search to find the commit that introduced a bug
+
+
+
+rebase and merge are used to bring changes from one branch to another in diff ways
+  in merge we can find the history of every commit but not in order bcoz of two branches pushing code, and it gives another commit
+  in rebase it maintaines linear history(unsafe)
+  

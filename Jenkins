@@ -1,0 +1,35 @@
+-----------Jenkins_Plugins--------- plugins are used for enhancing the functionality of jenkins env
+
+greenballs plugin --> changes jenkins build to green color instead of blue for successful builds
+Build Timeout plugin --> This plugin allows you to automatically terminate a build if it’s taking too long. This plugin isn’t applicable to pipelines.
+Credentials Plugin --> This plugin allows you to store credentials in Jenkins
+Multibranch Pipeline Plugin--> allows Jenkins to automatically build branches that contain jenkinsfile
+CopyArtifact Plugin--> allows to copy artifatcs from previous built jobs 
+Locable resource plugin --> to lock a particular job through agent for multiple builds
+rebuild plugin, parameterized-trigger plugin, 
+
+
+--------Diff b/w freestyle and pipeline jobs------
+In freestyle job we use 2/3 jobs for build, test, deploy whereas in pipeline job we used stages to trigger all three in one go
+Freestyle jobs are not durable(cannot resume builds when jenkins is restarted) and Pausable(approval before continuing) compared to pipeline jobs
+durable(Pipelines can survive both planned and unplanned restarts of your Jenkins controller)
+------------Diff b/w scripted and declarative------
+by default declarative has scm checkout stage whereas scripted doesnt
+declarative have restart from satge as option to restart a build at some satge and scripted doesnt
+You can restart any completed Declarative Pipeline from any top-level stage which ran in that Pipeline
+Scripted Pipeline - node is a crucial first step as it allocates an executor and workspace for the Pipeline
+in declarative you can mention different agent in each stage
+the maximum size of the code within the pipeline{} block. This limitation does not apply to Scripted pipelines.
+
+In a multi-branch pipeline, Jenkins automatically  build branches that contain jenkinsfile
+Can we reset admin pass if its forgot?
+Yes, stop the jenkins and go to cd /var/lib/jenkins and open config.xml file and change useSecurity as false and try to login.
+go to configure global security -- security realm - jenkins own user database - anyone can do anythimg
+
+we can trigger upstream and downstream jobs in two ways
+1) Under build triggers - build after other projects are built
+2) pipeline syntax - declarative directive generator - triggers - upstream - generate declarative - take the snippet and paste in pipeline below agent any
+
+The post section defines one or more additional steps that are run upon the completion of a Pipeline or stage
+
+

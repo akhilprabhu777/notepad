@@ -1,0 +1,10 @@
+For log rotate:
+Configuration is easy and fast but
+Need root access and limited flexibility
+Mainly used for maintaining system logs by system admins
+
+For Script:
+Only one time scripting needed
+No root access needed
+More flexibility to customize your script as per your need
+Useful for application logs management, data management

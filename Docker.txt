@@ -1,0 +1,121 @@
+Registry -- collection of repo's
+
+Docker File
+Docker file is a kind of recipe for your application! A Docker file is a script that contains a set of instructions used to build a Docker image.
+
+Docker Image
+A Docker image is a packaged and portable software solution that contains all the dependencies and configurations required to run an application.
+----------------------
+Docker Engine is the underlying technology that runs containers
+
+ubuntu from aws to download docker
+
+sudo apt update -y
+sudo apt install docker.io -y
+sudo usermod -aG Docker ubuntu/$USER
+logout and login to ubuntu again
+docker info
+
+after cloning and pushing to github
+-------------
+docker build -t akhilprabhu777/maven-web-app:1 .
+docker push akhilprabhu777/maven-web-app:1
+------------
+node{
+    def buildNumber=BUILD_NUMBER
+    stage("checkout code"){
+        git url: "https://github.com/MithunTechnologiesDevOps/java-web-app-docker.git",branch: "master"
+    }
+    stage("maven clean pacakage"){
+    def mavenHome= tool name: "Maven", type: "maven"
+    sh "${mavenHome}/bin/mvn clean package"
+    }
+    stage("Build docker image"){
+        sh "docker build -t akhilprabhu777/java-web-app:${buildNumber} ."
+    }
+    stage("docker login and push"){
+        withCredentials([string(credentialsId: 'dockerpwd', variable: 'dockerpwd')]) {
+        sh "docker login -u akhilprabhu777 -p ${dockerpwd}"
+      }
+      sh "docker push akhilprabhu777/java-web-app:${buildNumber}"
+    }
+    stage("deploy app as doc container"){
+        sshagent(['deployserverkey']) {
+        sh "ssh -o StrictHostKeyChecking=no ubuntu@172.31.40.199 docker rm -f javawebappcontainer || true":
+        
+        sh "ssh -o StrictHostKeyChecking=no ubuntu@172.31.40.199 docker run -d -p 8080:8080 --name javawebappcontainer akhilprabhu777/java-web-app:${buildNumber}"
+      }
+    }
+}
+
+To create an image we need a Dockerfile
+---------Docker images commands-------------
+docker pull imagename
+docker push imagename
+docker image ls (or) docker images
+docker rmi imagename/id (or) docker rmi $(docker images -q)
+   docker images -q --> returns only image id's
+docker image inspect imagename/id (or) docker inspect imagename/id --- more details abt image
+docker history imagename -- to see diff layers of image
+docker build -t imagename -- imagename = Registry/repo:tag --> to create an image
+
+private registry -- nexusip/hostname:port/repo:version
+
+---------Docker container commands--------------
+docker run --> creates and starts container
+docker conatiner logs -f conatiner-id --> to see logs (-f = follow)
+docker create --> only creates container
+docker start containerid/name (stop/restart)
+docker ps or docker container ls (only running containers)
+docker ps -a or docker container ls -a (all running/stopped conatiners) \
+netstat -tulnp --> to see ports 
+docker rename oldcontainername newname
+docker rm -f containerid/conatinername
+docker kill container-id 
+docker run -it \ -p 8080(host port):80(conatiner port)
+docker exec conatinerid/conatinername command or docker exec -it conatinerid/conatinername cmd 
+docker conatiner prune --> removes all stopped conatiners
+docker image prune --> removes all dangling images, which doesnt have tags only will be remooved
+
+docker create network -d mclan --subnet=10.0.1.2/23 --iprange=10.9.1.2/24 ecommerce
+docker container run -d --name conatiner-name -p 8084:80 imagename:tag
+docker commit conatiner name image:id -- to create a new image from conatiner
+
+--------Dangling image----- which is not tagged with repo(doesnt have any tag) --> docker images -f(filter) dangling=true
+
+docker system command(df,events,info,prune)
+
+---Dockerfile---
+FROM imagename:tag --> it indicates base image on which we create our own image
+MAINTAINER --> deprecated , just like commenting or who is author of dockerfile
+COPY --> we can copy local/source files/folders to image/container -- COPY <source path> <dest path>
+ADD --> it also copies files/folders and also downloads files from internet http(s) -- ADD <url> <dest path> or ADD <source path> <dest path>
+        if we add tar files in ADD, it adds and extracts tar files automatically in image
+WORKDIR /app --> where this app should be
+we can execute commands using RUN/CMD/ENTRYPOINT
+RUN --> will be used while creating an image -- if we want to install/configure some s/w we will use
+  RUN mkdir -p /usr/bin/akhil (run is for installing packages, running tests)
+  RUN yum install git -yum, RUN chmod -R r+w filename
+  RUN yum install git -yum && mkdir -p /usr/bin/akhil
+WORKDIR --> to specify working dir initially in dockerfile for image/conatiner
+   it can create a dir and switches to it
+CMD --> will be executed while starting the container -- we can start the process (app'n) -- cmd to run when container startup
+  recent CMD will be executed, it will override when arg's are passed
+  CMD ["yum", "-y", "install", "git"] -- each word should be in double quotes -- cannot pass arguments - Exec form
+ENTRYPOINT --> installs mentioned s/w and also installs another s/w if we pass any as argument -- recent ENTRYPOINT will be executed, it will not override when arg's are passed
+  ENTRYPOINT ["yum", "-y", "install", "git"] -- docker run demobox httpd telnet --> installs git and also installs httpd,telnet
+  ENTRYPOINT will be first executed if we have both CMD and ENTRYPOINT in dockerfile
+ENV --> we can set env variables using ENV
+  ENV <key> <value> -- ENV JENKINS_HOME /opt/jenkins -- we can call this key anywhere say -- COPY target/webapp.jar $JENKINS_HOME/webapp.jar
+ARG --> we can define as variable and can refer them within dockerfile -- we can pass ARGS as parameters while creating image
+  ARG <key>=<value> -- ARG user=akhil
+LABEL --> kindof metadata and it is key-value pair
+  LABEL version 1
+  LABEL name webapplication
+EXPOSE --> kindof documentation just saying conatiner is running on some port/repo  
+  EXPOSE 8080  
+  
+----------------------------
+-----multi stage dockerfile-------
+used to build image in multiple stages and one stage o/p can be passed as i/p to other 
+

@@ -1,0 +1,176 @@
+to run in debug mode/used for debugging
+---set -x (code) set +x
+set -vx(verbose)
+The set -e option instructs bash to immediately exit if any command [1] has a non-zero exit status
+set -u affects variables. When set, a reference to any variable you haven't previously defined
+firstName="Aaron"
+fullName="$firstname Maxwell"
+
+single line comment
+---#
+multi line comment
+---<<end (code) end
+
+./dbbackup.sh (or) sh dbbackup.sh -- to execute the shell script
+
+echo $? -> previous cmd execution status (o/p should be zero(0))
+$! Shows process id of the process that recently went into background 
+$$  gives the process id of the currently executing process 
+
+$0 -- name of script Ex: hello.sh
+$n -- returns value of that argument Ex: $1, $2
+$# -- no.of arguments passedEx: 2 or 3
+$@ -- prints all arguments as is 
+$* -- arg names Ex: devdb, /tmp
+-z and -n -- if variable is empty prints 0
+-s -- used for file size
+-e -- if file exits or not --> if [ -e $filename] 
+shift --> to remove/move first value and take second value
+-a -- represents and --> [$a -le 100 -a $a -ge 100]
+-o -- represents or 
+
+
+
+export PATH=$PATH:/home/ubuntu --> /home/ubuntu is being added to PATH which already has some path say /usr/bin:/usr/sbin................etc
+
+-eq --> == ; -ne --> !=; -gt --> >; -ge --> >=; -lt --> <; -le --> <=
+
+sh hello.sh 2> errror.log 1> output.log
+--------------------------------------------------------------------------
+
+--Java installed or not--
+java -version
+if [ $? -eq 0 ] (or) if [ -f $file]
+then
+echo "java is installed"
+else 
+echo "installing java"
+fi
+
+--------------------------------------------------------------------------
+
+--to accept input from the user--
+echo "Enter your name"
+read name (or) read -a variableName (a - array)
+echo "Welcome Mr." $name
+
+read -p "Enter your username"
+read -sp "Enter your password" (p - print, s - sensitive)
+
+---------------------------------------------------------------------------
+
+--for looop--
+for (( i=1;i<=5;i++ ))
+do 
+echo $i
+done
+
+--while loop--
+a=5
+while [ $a -le 5 ]
+do
+echo $a
+a=`expr $a + 1`
+done
+
+--switch case--
+case $1 in
+start) 
+echo "starting the server"
+;;
+stop) 
+echo "stopping the server";;
+restart) 
+echo "restarting the server";;
+*)
+echo "Usage sh $0 start|stop|restart";;
+esac
+
+-------------git token
+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
+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
+----------------jenkins token
+294fd816e6e14e4f9094f7c5362a9333
+
+
+----------PROJECTS-------------
+#!/bin/bash
+
+RED=$'\e[1;31m'
+GREEN=$'\e[1;32m'
+BLUE=$'\e[1;34m'
+
+while true
+do
+        clear
+        echo $RED $(date +%T)
+        sleep 1s
+done
+------------------------
+#!/bin/bash
+
+base=/home/ubuntu
+depth=1
+run=0
+if [ ! -d $base ]; then
+        echo no path found
+        exit 1
+fi
+if [ ! -d $base/archive_dir ]
+then
+        echo creating folder
+        mkdir archive_dir
+fi
+
+for i in 'find $base -maxdepth $depth -type f -size +10K'
+do
+        if [ $run -eq 0 ]
+        then
+                gzip $1 || exit 1
+                mv $i $base/archive_dir
+        fi
+done
+-----------------------
+#!/bin/bash
+if [ $UID -ne 0 ]
+then
+        echo run script as root user
+        exit 1
+fi
+
+if [ $# -lt 1 ]
+then
+        echo enter atleast one argument usage: $0 username comment
+        exit 1
+fi
+
+username=$1
+echo $username
+
+shift
+comment=$@
+echo $comment
+ 
+pass=$(date +%s%N)
+echo $pass
+
+useradd -c "$comment" -m $username
+echo created user $username
+
+if [ $? -ne 0 ]
+then
+        echo user not created
+        exit 1
+fi
+
+echo $pass | passwd --stdin $username
+
+if [ $? -ne 0 ]
+then
+        echo password not created
+        exit 1
+fi
+
+echo your username is $username
+echo your pass is $pass
+echo you directoru is $hostname

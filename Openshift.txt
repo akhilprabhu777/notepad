@@ -1,0 +1,37 @@
+oc login --token=sha256~IY9IoJcNBBE6GSwk_tB0fZtbrFAfZ6uB9V24KvcqrcU --server=https://api.sandbox-m2.ll9k.p1.openshiftapps.com:6443
+command to login to openshift on command line --> oc login <cluster URL>
+command to create a new project --> oc new-project name
+oc explain pod --> to know how to create a pod yml file --  Pod is a collection of containers that can run on a host
+oc get pods --> to list pods
+oc rsh podname--> to start a shell in running pod
+oc delete pod podname
+
+kubectl describe pod the-pod-name -- provides detailed information of a specific Pod and its containers
+kubectl logs mypod --all-containers -- You can view the logs for all the containers of the pod:
+kubectl logs mypod -c mycontainer -- even a container in that pod
+
+livenessProbe
+Indicates whether the container is running. If the liveness probe fails, the kubelet kills the container, and the container is subjected to its restart policy
+
+readinessProbe
+Indicates whether the container is ready to respond to requests. If the readiness probe fails, the endpoints controller removes the Pod's IP address from the endpoints 
+of all Services that match the Pod.
+----crashloopbackoff-------a container in the Pod is started, but crashes and is then restarted, over and over again.
+restarting is because its restartPolicy is set to Always(by default) or OnFailure
+
+Misconfigurations: Like a typo in a configuration file.
+A resource is not available: Like a PersistentVolume that is not mounted.
+Wrong command line arguments: Either missing, or the incorrect ones.
+Bugs & Exceptions: That can be anything, very specific to your application.
+Read-only filesystems, or lack of permissions in general.
+
+-----imagepullerror---------
+ErrImagePull is an error happening when the image specified for a container can’t be retrieved or pulled./ image indicated is not available or doesn’t exist.
+ImagePullBackOff is the waiting grace period while the image pull is fixed/ Unlike CrashLoopBackOff, there are no restarts (technically Pod hasn’t even started)
+
+A similar back-off period is ImagePullBackOff, which is a waiting status when a container image couldn’t be pulled.
+A container image contains all the resources needed to run those processes: the binaries, libraries, and any necessary configuration.
+
+Wrong image name/Wrong image tag/Wrong image digest
+Network problem or image repo not available
+Pulling from a private registry but not imagePullSecret was provided

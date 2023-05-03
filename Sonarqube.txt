@@ -1,0 +1,23 @@
+Projects-Issues-Rules-Quality profiles-Quality gates-Admin
+Quality Profiles are collections of rules to apply during an analysis.For each language there is a default profile
+Quality gates - it should satisfy certain condition say code coverage -80%, duplicate lines < 3 etc
+
+Java is pre-requisite before installing sonarqube
+
+To install sonarqube in aws take t2.medium 
+
+------Architecture----------
+Sonarqube has 4 components - compute engine, H2, Web servrer, Search engine
+Sonarqube Scanner will scan the code and check for any duplicate code/complex code/bugs and gives report to sonar servrer
+
+In Sonar servrer, compute engine will divide report into vulnerabilties,bugs, code smells
+It has inbuild db called H2	
+
+update pom.xml file with sonar url, username, pass(provide token)
+squ_1bec432bb4d0955f7ec6c7cebdd0c1ced63b61d9
+
+     (plugin name-scanner)
+mvn sonar:sonar(goal name)
+
+sonarqube/bin/sonar.sh -- to start the sonar service
+sonarqube/conf/sonar.properties -- modify file if you need to connect to any external db / to change port num / to restrict who can access sonar UI etc

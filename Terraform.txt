@@ -1,0 +1,116 @@
+Terraform is an infrastructure as code tool that lets you build, change, and version cloud and on-prem resources safely and efficiently.
+
+create a terraform folder and create sample .tf file and type terraform init by going to partucalr file path in gitbash or power shell
+
+create an IAM user in aws and give admin access , save access key id and seceret key access
+
+----run below commands---- these cmds will create resources as specified in .tf file
+terraform plan
+terraform apply -- after this cmd excution one more file called .tfstate file will be created
+
+states --> desired(what we write in .tf file), known(from .tfstate file), actual(present in aws)
+
+terraform console --> to check the desired code in .tf file(it takes you to terminal)
+
+terraform plan -out iam.tfplan --> to store plan output into a file
+terraform apply "iam.tfplan"
+
+terraform apply -target="aws_s3_bucket.s3_bucket" --> to update the bucket/iam user name in aws
+
+terraform destroy --> deletes all resources
+terraform destroy -target resource type.resource name (if we want to delete 1 out of 20 resources)
+terraform validate --> to check whether systax/configuration is crt or not
+terraform fmt --> to get correct indentations
+var.tf contains all variables required for .tf file
+terraform import --> to import existing config's if we lost tfstate file
+terraform show command is used to provide human-readable output from a state or plan file
+terraform module allows you to group resources together and reuse this group later, possibly many times
+
+count function - if we are not specific with no.of instances/subnets
+
+lifecycle is a nested block that can appear within a resource block. The lifecycle block and its contents are meta-arguments, available for all resource blocks regardless of type. 
+The arguments available within a lifecycle block are create_before_destroy , prevent_destroy , ignore_changes , and replace_triggered_by
+
+terraform.tfvars --> variables mentioned in this file
+variable "environment" {
+  #type = string/number/bool/list/map/set/object/tuple
+  default = "dev"
+ }
+name = "${var.environment}"
+
+connection {} --> to connect to ec2 instance with key pair
+
+provisioner "remote-exec" {} --> to pass commands. Ex- sudo yum install httpd -y, sudo service start
+
+
+---------------sample template-------------
+variable "aws_key_pair" {
+  default = "~/aws/aws_keys/practice_server.pem"
+}
+
+terraform {
+  required_providers {
+    aws = {
+      source = "hashicorp/aws"
+    }
+  }
+}
+
+provider "aws" {
+  region = "ap-south-1"
+}
+
+resource "aws_security_group" "my_http_sg" {
+
+  name   = "my_http_server_sg"
+  vpc_id = "vpc-07a671949b7cc20c7"
+
+  ingress {
+    description = "TLS from VPC"
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    description = "TLS from VPC"
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = -1
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+}
+resource "aws_instance" "my_aws_instance" {
+
+  ami                    = "ami-07d3a50bd29811cd1"
+  key_name               = "practice_server"
+  instance_type          = "t2.micro"
+  availability_zone      = "ap-south-1a"
+  vpc_security_group_ids = [aws_security_group.my_http_sg.id]
+  subnet_id              = "subnet-0517a6db5917f1fc7"
+
+
+  connection {
+    type        = "ssh"
+    host        = self.public_ip
+    user        = "ec2-user"
+    private_key = file(var.aws_key_pair)
+
+  }
+  provisioner "remote-exec" {
+    inline = [
+      "sudo yum install httpd -y",
+      "sudo service httpd start",
+      "echo PUNGANURU VENU GOPAL REDDY - YOU ARE HACKED | sudo tee /var/www/html/index.html"
+    ]
+  }
+}
