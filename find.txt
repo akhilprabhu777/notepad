@@ -1,3 +1,0 @@
-•	Trouble shooting issues of severs  when it’s down.
-•	Setting up SMS in servers
-•	Deploying license in the application.
