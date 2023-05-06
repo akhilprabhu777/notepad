@@ -174,3 +174,12 @@ fi
 echo your username is $username
 echo your pass is $pass
 echo you directoru is $hostname
+
+-------------
+#!/bin/bash
+if [ -f/-e $filename ]
+then
+echo "file present"
+esle
+echo "file not present"
+fi

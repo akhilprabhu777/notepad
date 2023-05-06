@@ -1,0 +1,3 @@
+ECS - 2 types of launching metheods
+1) EC2 -- we need to launch ec2 machines, install docker and insatll ECS-agent etc manually
+2) Fargate(serverless architecture) -- aws manages underlyning infra, creates ec2 machines ondemand
