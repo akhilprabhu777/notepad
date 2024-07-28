@@ -29,7 +29,7 @@ shift --> to remove/move first value and take second value
 -a -- represents and --> [$a -le 100 -a $a -ge 100]
 -o -- represents or 
 
-
+ps -ef -- to list all the processess in linux machine
 
 export PATH=$PATH:/home/ubuntu --> /home/ubuntu is being added to PATH which already has some path say /usr/bin:/usr/sbin................etc
 

@@ -13,3 +13,4 @@ pvc issues - will create pvc acc to qa03(rwx shared - 10 GB)
 unable to pull secrets from vault - will check whether secrets are present in vault or not if not found will create them.
 
 Agile team experience with SCRUM 
+

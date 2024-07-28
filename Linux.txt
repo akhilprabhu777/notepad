@@ -1,10 +1,30 @@
 awk -F(field seperater) '-' '{print $NF}' --> NF for last field
-awk -F(field seperater) '-' '{print $NF}' <<< $(hostname) --> redirecting command o/p to hostname
+awk -F(field seperater) ' ' '{print $NF}' <<< $(hostname) --> redirecting command o/p to hostname
 
 echo ${hostName[-1]} -- for last value in row
 IFS(internal field seperater) --> IFS='-' read -a hostName <<< $(hostanme)
 
 sed –n '10,$p' file1|sed '/MNO/s/ABC/DEF/' --> $p end of file from line 10 and which line has MNO replace ABC with DEF
+'4,10d' -- Lines starting from the 4th till the 10th are deleted
+'4,+5d' -- prints 4th line and prints +5 lines from then
+sed  '2,4!d' data.log -- deletes all lines except from 2nd to 4th line
+sed -n '1,5p' data.log -- prints 1 to 5 data only (-n doesnt prints twice)
+'1~3d' -- this deletes 1st line and steps 3 lines and deletes fourth line
+
+alias list="ls -ltr"
+alias -p (print)
+
+hostname jenkins/docker/ansible will change from IP to respective names
+Ex: ubuntu@ip-192.163.89.23 --> ubuntu@jenkins/docker/ansibles
+
+go to .bashrc and add alias to make them permanent
+source .bashrc -- to effect the changes
+
+to find num of s in "mississipi" -- country=mississipi --> grep -o(only) "s" <<<"$country" | wc -l
+to open a file in read-only mode -- vim -r test.txt
+to find names starts with a -- cat names | grep ^A
+ends with -- cat names | grep il$
+scp -i linux.pem filename ubuntu@public-IP:/home/ubuntu -- to copy files from local to aws server using scp command
 
 Absolute path = /home/ubuntu/filename
 Relative path = ./filename
@@ -12,6 +32,8 @@ Relative path = ./filename
 Both curl(protocols -- HTTP, HTTPS, FTP, FTPS, SCP, SFTP) and wget(HTTP and FTP) commands are used to download files from internet, and while they have some similarities
 wget/curl [options] URL
 curl -K urls.txt -- you can use a list of URLs in a text file and then pass that file to curl using -K option
-wget -r https://example.com/ -- To download all linked files on a website with wget, you can use -r option. For example −
+wget -r https://example.com/ -- To download all linked files on a website with wget, you can use -r option. 
 
-
+----------default file permissions--------
+-rw-r--r--. 1 ec2-user ec2-user   0 May  7 03:16 file2
+drwxr-xr-x. 2 ec2-user ec2-user   6 May  7 03:17 directory

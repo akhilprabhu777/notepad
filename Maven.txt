@@ -1,13 +1,9 @@
 Maven is a tool that can be used for building and managing any Java-based project
 
-
-
-
-
 -------A Build Lifecycle is Made Up of Phases-------
 Each of these build lifecycles is defined by a different list of build phases, wherein a build phase represents a stage in the lifecycle.
 
-For example, the default lifecycle comprises of the following phases (for a complete list of the lifecycle phases, refer to the Lifecycle Reference):
+For example, the default lifecycle comprises of the following phases 
 
 validate - validate the project is correct and all necessary information is available
 compile - compile the source code of the project

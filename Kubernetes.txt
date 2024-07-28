@@ -2,6 +2,10 @@ EKS -- managed k8s service by aws, aws manages the control plane (EKS doesnt man
 
 node -- a node is a machine/server either virtual/physical on which k8s is insatlled
 
+ingress controller accepting traffic from outside the Kubernetes platform and load balancing it to Pods(containers) running inside the platform.
+This typically uses HTTPS and HTTP protocols to facilitate the routing. Ingress is the ideal choice for a production environment
+
+
 minikube is combination of  apiserver, etcd, scheduler, controller manager, kubelet as exe file
 
 control-plane -- main node which orcehstrates the other worker nodes
@@ -13,15 +17,19 @@ kubelet it is an agent runs on worker nodes, it makes sure containers running on
 kubeproxy -- for communication b/w nodes and containers
 containerruntime which is responsible to run containers Ex: Docker
 
+--both maintains replication of pods----
 
-configMap -- to change small configs say db url we use this inatead of rebuilding whole image again
+stateful applications -- db, app's that store data -- deployed using deployment componet - it assigns pods with random hash num
+stateless applications -- dont keep record of state, each request is new -- deployed usnig statefulset componet - fixed ordered names
+
+configMap -- to change small configs say db url we use this instead of rebuilding whole image again
 secret -- reg db username/password in base64 format
 ------------commands and yaml files below-----------
 
 kubectl get nodes -- to get node details (-o gives full length details of nodes)
 
 pod.yaml
------kubectl create/apply -f pod.yaml , kubectl get pods, kubectl describe pod nginx
+-----kubectl create/apply -f pod.yaml , kubectl get pods (-o wide), kubectl describe pod nginx
 apiVersion: v1
 kind: Pod
 metadata:
@@ -37,7 +45,7 @@ spec:
 	 
 ----replicatset -- it will make sure desired pods are in running state, if one pod gets killed it creates another one
 kubectl replace -f replicatset.yam or kubectl scale --replcias=6 -f replicaset.yaml -- for changing replicas
-apiVersion: apps/	v1 
+apiVersion: apps/v1 
 kind: ReplicaSet
 metadata:
   name: myreplicaset

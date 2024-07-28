@@ -18,7 +18,8 @@ docker info
 
 after cloning and pushing to github
 -------------
-docker build -t akhilprabhu777/maven-web-app:1 .
+docker build -t akhilprabhu777/maven-web-app:1 . (-t means tag)
+docker run -it akhilprabhu777/maven-web-app:1 (-it means interactive)
 docker push akhilprabhu777/maven-web-app:1
 ------------
 node{
@@ -75,7 +76,7 @@ docker kill container-id
 docker run -it \ -p 8080(host port):80(conatiner port)
 docker exec conatinerid/conatinername command or docker exec -it conatinerid/conatinername cmd 
 docker conatiner prune --> removes all stopped conatiners
-docker image prune --> removes all dangling images, which doesnt have tags only will be remooved
+docker image prune --> removes all dangling images, which doesnt have tags only will be removed
 
 docker create network -d mclan --subnet=10.0.1.2/23 --iprange=10.9.1.2/24 ecommerce
 docker container run -d --name conatiner-name -p 8084:80 imagename:tag
@@ -100,8 +101,8 @@ RUN --> will be used while creating an image -- if we want to install/configure 
 WORKDIR --> to specify working dir initially in dockerfile for image/conatiner
    it can create a dir and switches to it
 CMD --> will be executed while starting the container -- we can start the process (app'n) -- cmd to run when container startup
-  recent CMD will be executed, it will override when arg's are passed
-  CMD ["yum", "-y", "install", "git"] -- each word should be in double quotes -- cannot pass arguments - Exec form
+  recent CMD will be executed, "it will override when arg's are passed" in CLI -- docker run imagename command
+  CMD ["yum", "-y", "install", "git"] -- each word should be in double quotes 
 ENTRYPOINT --> installs mentioned s/w and also installs another s/w if we pass any as argument -- recent ENTRYPOINT will be executed, it will not override when arg's are passed
   ENTRYPOINT ["yum", "-y", "install", "git"] -- docker run demobox httpd telnet --> installs git and also installs httpd,telnet
   ENTRYPOINT will be first executed if we have both CMD and ENTRYPOINT in dockerfile
@@ -119,3 +120,4 @@ EXPOSE --> kindof documentation just saying conatiner is running on some port/re
 -----multi stage dockerfile-------
 used to build image in multiple stages and one stage o/p can be passed as i/p to other 
 
+9912548008 - ram more

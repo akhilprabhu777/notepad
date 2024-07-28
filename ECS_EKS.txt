@@ -1,3 +1,9 @@
 ECS - 2 types of launching metheods
 1) EC2 -- we need to launch ec2 machines, install docker and insatll ECS-agent etc manually
-2) Fargate(serverless architecture) -- aws manages underlyning infra, creates ec2 machines ondemand
+2) Fargate(serverless architecture) -- aws manages underlyning infra, creates ec2 machines on-demand
+
+ECS has task definition(blueprint how conatiners should launch) file similar to docker-compose file which has all required details to run a conatiner Ex: CPU/memory, ports/image/volumes
+
+ECS Service -- it ensures certain no.of tasks are running all time, restarts conatiner if crashes/exited
+
+EKS -- aws manages the control plane

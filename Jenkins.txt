@@ -11,8 +11,8 @@ rebuild plugin, parameterized-trigger plugin,
 
 --------Diff b/w freestyle and pipeline jobs------
 In freestyle job we use 2/3 jobs for build, test, deploy whereas in pipeline job we used stages to trigger all three in one go
-Freestyle jobs are not durable(cannot resume builds when jenkins is restarted) and Pausable(approval before continuing) compared to pipeline jobs
-durable(Pipelines can survive both planned and unplanned restarts of your Jenkins controller)
+Freestyle jobs are not durable(cannot resume builds when jenkins is restarted) and Pausable(approval before continuing) compared to 
+pipeline jobs are durable(Pipelines can survive both planned and unplanned restarts of your Jenkins controller)
 ------------Diff b/w scripted and declarative------
 by default declarative has scm checkout stage whereas scripted doesnt
 declarative have restart from satge as option to restart a build at some satge and scripted doesnt

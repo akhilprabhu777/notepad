@@ -1,0 +1,18 @@
+DBMS -- Database Management System is a s/w used to define, create , maintain database and provides access to data
+RDBMS -- is used to store data that is in the form of tables
+
+PRIMARY KEY -- unique + not null (Parent table)
+it is a column or group of columns in table that uniquely identifies the rows of data in table
+
+FOREIGN KEY -- it is a column or group of columns in table that refers to PRIMARY KEY in another table (Child table)
+NOT NULL -- ensure that a column cannot have a null value
+UNIQUE -- ensures that column have all different values
+
+Data Definition Language (DDL) -- create, alter, drop, truncate,  rename
+Data Manipulation Language (DML) -- select, insert, update, delete
+Data Control Language (DCL) -- grant, revoke
+Transaction control Language (TCL)-- commit, rollback, savepoint
+
+DELETE -- removes rows from a table, can be rolled back
+DROP -- removes a table from db, cannot be rolled back
+TRUNCATE -- removes all rows from table, cannot be rolled back

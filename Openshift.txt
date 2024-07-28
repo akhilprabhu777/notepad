@@ -1,10 +1,12 @@
 oc login --token=sha256~IY9IoJcNBBE6GSwk_tB0fZtbrFAfZ6uB9V24KvcqrcU --server=https://api.sandbox-m2.ll9k.p1.openshiftapps.com:6443
 command to login to openshift on command line --> oc login <cluster URL>
 command to create a new project --> oc new-project name
+oc project 21235 -- to go into 21235 namespace
 oc explain pod --> to know how to create a pod yml file --  Pod is a collection of containers that can run on a host
-oc get pods --> to list pods
+oc get pods/secrets/quota/route --> to list pods
 oc rsh podname--> to start a shell in running pod
 oc delete pod podname
+oc describe pod podname
 
 kubectl describe pod the-pod-name -- provides detailed information of a specific Pod and its containers
 kubectl logs mypod --all-containers -- You can view the logs for all the containers of the pod:
@@ -14,8 +16,8 @@ livenessProbe
 Indicates whether the container is running. If the liveness probe fails, the kubelet kills the container, and the container is subjected to its restart policy
 
 readinessProbe
-Indicates whether the container is ready to respond to requests. If the readiness probe fails, the endpoints controller removes the Pod's IP address from the endpoints 
-of all Services that match the Pod.
+Indicates whether the container is ready to respond to requests. If the readiness probe fails, the container shouldnt receive traffic even if its running
+
 ----crashloopbackoff-------a container in the Pod is started, but crashes and is then restarted, over and over again.
 restarting is because its restartPolicy is set to Always(by default) or OnFailure
 
@@ -35,3 +37,7 @@ A container image contains all the resources needed to run those processes: the 
 Wrong image name/Wrong image tag/Wrong image digest
 Network problem or image repo not available
 Pulling from a private registry but not imagePullSecret was provided
+
+1710 ,
+1480
+1000
