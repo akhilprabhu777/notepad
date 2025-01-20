@@ -1,6 +1,6 @@
 created new repo's and added default approvers to approve pr's before merging to master branch
 
-created hooks for bitbucket and jenkins to auto trigger the vault-select pipeline post merging to master branch
+created webhooks for bitbucket and jenkins to auto trigger the vault-select pipeline post merging to master branch
 
 generated CSR's and uploaded onto CertNow to get signed by the CertNow team and will handover certificate to network team to install on servers
 
@@ -9,8 +9,11 @@ appviewx permisson issue - we used to provide access to particular NP/Prod wips
 appviewx pipelines are triggered to enabel/disable the ltm pool mem's
 
 ----openshift common error---
-pvc issues - will create pvc acc to qa03(rwx shared - 10 GB)
+pvc issues - will create pvc according to qa03(rwx shared - 10 GB)
 unable to pull secrets from vault - will check whether secrets are present in vault or not if not found will create them.
 
 Agile team experience with SCRUM 
+
+
+
 
