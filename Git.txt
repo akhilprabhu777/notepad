@@ -1,4 +1,5 @@
-git init --> to initiate local git repo
+git init --> to initiate as working dir
+git config --list --> to list user.name/user.email
 git branch -d example --> to delete a branch locally
 git push origin --delete listbranch-1 --> to delete a branch in github
 git checkout filename --> to undo modified file
